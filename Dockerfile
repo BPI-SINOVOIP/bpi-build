@@ -1,6 +1,8 @@
 FROM	ubuntu:12.04.5
 MAINTAINER	BPI  "BPI-SINOVOIP"
 
+RUN	add-apt-repository ppa:webupd8team/java
+
 RUN	apt-get update && apt-get install -y \
 	apt-utils \
 	openssh-server \
@@ -19,7 +21,9 @@ RUN	apt-get update && apt-get install -y \
 	pkg-config \
 	libusb-1.0-0-dev \
 	python-software-properties \
-	software-properties-common
+	software-properties-common \
+	oracle-java6-installer \
+	busybox
 
 ADD	dtc /usr/bin/dtc
 
@@ -33,3 +37,4 @@ VOLUME	["/media"]
 EXPOSE	22
 
 CMD	["/usr/sbin/sshd", "-D"]
+
