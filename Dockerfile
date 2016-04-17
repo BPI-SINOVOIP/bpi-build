@@ -19,7 +19,9 @@ RUN	apt-get update && apt-get install -y \
 	pkg-config \
 	libusb-1.0-0-dev \
 	python-software-properties \
-	software-properties-common
+	software-properties-common \
+	libncurses5-dev \
+	busybox
 
 ADD	dtc /usr/bin/dtc
 
