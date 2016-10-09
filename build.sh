@@ -1,1 +1,1 @@
-docker build -t dangku/bpi-build:ubuntu12.04_v0.1 .
+docker build -t dangku/bpi-build-android:a20_v01 .

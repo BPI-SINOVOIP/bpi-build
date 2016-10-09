@@ -23,7 +23,31 @@ RUN	apt-get update && apt-get install -y \
 	python-software-properties \
 	software-properties-common \
 	oracle-java6-installer \
-	busybox
+	busybox \
+	git \
+	gnupg \
+	flex \
+	bison \
+	gperf \
+	build-essential \
+	zip \
+	curl \
+	libc6-dev \
+	libncurses5-dev:i386 \
+	x11proto-core-dev \
+	libx11-dev:i386 \
+	libreadline6-dev:i386 \
+	libgl1-mesa-glx:i386 \
+	libgl1-mesa-dev \
+	g++-multilib \
+	mingw32 \
+	tofrodos \
+	python-markdown \
+	libxml2-utils \
+	xsltproc \
+	zlib1g-dev:i386 \
+	uboot-mkimage \
+	xserver-xorg
 
 ADD	dtc /usr/bin/dtc
 
@@ -31,6 +55,7 @@ RUN	mkdir /var/run/sshd
 RUN	echo 'root:root' | chpasswd
 RUN 	sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN 	sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN	ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
 
 VOLUME	["/media"]
 
