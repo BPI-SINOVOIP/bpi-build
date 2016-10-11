@@ -1,1 +1,1 @@
-docker build -t dangku/bpi-build-android:a20_v01 .
+docker build -t sinovoip/bpi-build-android:a20_01 .
