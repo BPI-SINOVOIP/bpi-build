@@ -63,7 +63,8 @@ RUN     apt-get update && apt-get install -y \
         xsltproc \
         zlib1g-dev:i386 \
         uboot-mkimage \
-        xserver-xorg
+        xserver-xorg \
+        libncurses5-dev
 
 ADD	dtc /usr/bin/dtc
 
