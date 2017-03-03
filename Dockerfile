@@ -1,29 +1,36 @@
-FROM	ubuntu:12.04.5
+FROM	ubuntu:14.04.5
 MAINTAINER	BPI  "BPI-SINOVOIP"
 
 RUN	apt-get update && apt-get install -y \
-	apt-utils \
-	openssh-server \
+	openjdk-7-jdk \
+	git-core \
+	gnupg \
+	flex \
+	bison \
+	gperf \
 	build-essential \
-	gcc-arm-linux-gnueabihf \
-	g++-arm-linux-gnueabihf \
-	gcc-arm-linux-gnueabi \
-	g++-arm-linux-gnueabi \
+	zip \
+	curl \
+	zlib1g-dev \
+	gcc-multilib \
+	g++-multilib \
+	libc6-dev-i386 \
+	lib32ncurses5-dev \
+	x11proto-core-dev \
+	libx11-dev \
+	lib32z-dev \
+	ccache \
+	libgl1-mesa-dev \
+	libxml2-utils \
+	xsltproc \
 	unzip \
-	sudo \
-	git \
-	mercurial \
-	vim \
-	bc \
+	mkisofs \
 	u-boot-tools \
-	device-tree-compiler \
-	ia32-libs \
-	pkg-config \
-	libusb-1.0-0-dev \
-	python-software-properties \
-	software-properties-common \
-	libncurses5-dev \
-	busybox
+	bc \
+	gawk \
+	busybox \
+	openssh-server \
+	vim
 
 ADD	dtc /usr/bin/dtc
 
