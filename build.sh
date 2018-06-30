@@ -1,1 +1,1 @@
-docker build -t sinovoip/bpi-build:ubuntu12.04 .
+docker build -t sinovoip/bpi-build-android-7:ubuntu16.04 .
