@@ -24,7 +24,8 @@ RUN	apt-get update && apt-get install -y \
 	lib32z-dev \
 	busybox \
 	gawk \
-	locales
+	locales \
+	cpio
 
 ADD	dtc /usr/bin/dtc
 
