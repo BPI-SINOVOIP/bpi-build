@@ -1,14 +1,11 @@
-FROM	ubuntu:12.04.5
+FROM	ubuntu:16.04
 MAINTAINER	BPI  "BPI-SINOVOIP"
 
 RUN	apt-get update && apt-get install -y \
 	apt-utils \
 	openssh-server \
 	build-essential \
-	gcc-arm-linux-gnueabihf \
-	g++-arm-linux-gnueabihf \
-	gcc-arm-linux-gnueabi \
-	g++-arm-linux-gnueabi \
+	gcc-multilib \
 	unzip \
 	sudo \
 	git \
@@ -17,13 +14,17 @@ RUN	apt-get update && apt-get install -y \
 	bc \
 	u-boot-tools \
 	device-tree-compiler \
-	ia32-libs \
 	pkg-config \
 	libusb-1.0-0-dev \
 	python-software-properties \
 	software-properties-common \
 	libncurses5-dev \
-	busybox
+	lib32ncurses5-dev \
+	libc6-dev-i386 \
+	lib32z-dev \
+	busybox \
+	gawk \
+	locales
 
 ADD	dtc /usr/bin/dtc
 
