@@ -22,6 +22,8 @@ RUN	apt-get update && apt-get install -y \
 	lib32ncurses5-dev \
 	libc6-dev-i386 \
 	lib32z-dev \
+	libswitch-perl \
+	libssl-dev \
 	busybox \
 	gawk \
 	locales \
