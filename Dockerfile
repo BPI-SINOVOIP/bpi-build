@@ -23,7 +23,10 @@ RUN	apt-get update && apt-get install -y \
 	libc6-dev-i386 \
 	lib32z-dev \
 	libswitch-perl \
+	openssl \
 	libssl-dev \
+	bison \
+	flex \
 	busybox \
 	gawk \
 	locales \
