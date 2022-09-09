@@ -1,5 +1,1 @@
-
-docker run --privileged -d -p 2222:22 -v /media:/media sinovoip/bpi-build-android-7:ubuntu16.04
-
-ssh -p 2222 root@127.0.0.1 #pw: root
-
+docker run --privileged -it --hostname android -u bananapi:bananapi -e USER="bananapi" -v /media:/media -v /etc/localtime:/etc/localtime --network host sinovoip/bpi-build-android-11:ubuntu20.04 /bin/bash

@@ -1,53 +1,25 @@
-FROM	ubuntu:16.04
-MAINTAINER	BPI  "BPI-SINOVOIP"
+FROM ubuntu:20.04
+MAINTAINER BPI "BPI-SINOVOIP"
 
-RUN	apt-get update && apt-get install -y \
-	openjdk-8-jdk \
-	git-core \
-	gnupg \
-	flex \
-	bison \
-	gperf \
-	build-essential \
-	zip \
-	curl \
-	zlib1g-dev \
-	gcc-multilib \
-	g++-multilib \
-	libc6-dev-i386 \
-	lib32ncurses5-dev \
-	x11proto-core-dev \
-	libx11-dev \
-	lib32z-dev \
-	ccache \
-	libgl1-mesa-dev \
-	libxml2-utils \
-	xsltproc \
-	unzip \
-	python \
-	cpio \
-	locales \
-	mkisofs \
-	u-boot-tools \
-	bc \
-	gawk \
-	busybox \
-	openssh-server \
-	vim
+ENV DEBIAN_FRONTEND noninteractive
 
-ADD	dtc /usr/bin/dtc
+RUN apt-get update -y && apt-get install -y software-properties-common
+RUN apt-get install -y python3-pip && pip install pycrypto
 
-RUN	locale-gen en_US.UTF-8
-ENV 	LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+RUN apt-get update -y && apt-get install -y openjdk-8-jdk python git-core gnupg flex bison gperf build-essential \
+zip curl gawk liblz4-tool zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
+libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
+libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
+htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
+dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio
 
-RUN	mkdir /var/run/sshd
-RUN	echo 'root:root' | chpasswd
-RUN	sed -i 's/AcceptEnv LANG LC_*/#AcceptEnv LANG LC_*/g' /etc/ssh/sshd_config
-RUN 	sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN 	sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+#RUN pip install pycrypto
+ENV USER=bananapi
+ARG USER_ID=0
+ARG GROUP_ID=0
+RUN groupadd -g ${GROUP_ID} bananapi && useradd -m -g bananapi -u ${USER_ID} bananapi
 
-VOLUME	["/media"]
+RUN echo 'root:root' | chpasswd
+RUN echo 'bananapi:bananapi' | chpasswd
 
-EXPOSE	22
-
-CMD	["/usr/sbin/sshd", "-D"]
+USER bananapi
