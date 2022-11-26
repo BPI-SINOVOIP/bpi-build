@@ -30,7 +30,8 @@ RUN	apt-get update && apt-get install -y \
 	busybox \
 	gawk \
 	locales \
-	cpio
+	cpio \
+	kmod
 
 ADD	dtc /usr/bin/dtc
 
