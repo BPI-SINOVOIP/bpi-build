@@ -18,6 +18,8 @@ ENV USER=bananapi
 ARG USER_ID=0
 ARG GROUP_ID=0
 RUN groupadd -g ${GROUP_ID} bananapi && useradd -m -g bananapi -u ${USER_ID} bananapi
+RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+RUN usermod -a -G sudo bananapi
 
 RUN echo 'root:root' | chpasswd
 RUN echo 'bananapi:bananapi' | chpasswd
