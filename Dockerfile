@@ -1,20 +1,136 @@
-FROM ubuntu:20.04
-MAINTAINER BPI "BPI-SINOVOIP"
+ARG BASE_IMAGE=ubuntu:jammy
+FROM $BASE_IMAGE as BPI-SINOVOIP
+ARG CUSTOM_PACKAGES='g++-11-arm-linux-gnueabihf libssl3'
+ENV CUSTOM_PACKAGES $CUSTOM_PACKAGES
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get -y dist-upgrade && apt-get -y install \
+       joe \
+       software-properties-common \
+       gnupg \
+       gnupg1 \
+       gpgv1 \
+       curl \
+    && rm -rf /var/lib/apt/lists/*
+RUN sh -c " \
+    if [ $(dpkg --print-architecture) = amd64 ]; then \
+        apt-get update \
+        && apt-get install -y --no-install-recommends \
+        lib32ncurses6 \
+        lib32stdc++6 \
+        lib32tinfo6 \
+        libc6-i386; \
+    fi"
+RUN apt-get update \
+    && apt-get -y dist-upgrade \
+    && apt-get install -y --no-install-recommends \
+       $CUSTOM_PACKAGES \
+       acl \
+       aptly \
+       aria2 \
+       bc \
+       binfmt-support \
+       binutils \
+       bison \
+       btrfs-progs \
+       build-essential \
+       busybox \
+       ca-certificates \
+       ccache \
+       cpio \
+       cryptsetup \
+       cryptsetup-bin \
+       debian-archive-keyring \
+       debian-keyring \
+       debootstrap \
+       device-tree-compiler \
+       dialog \
+       distcc \
+       dosfstools \
+       dwarves \
+       f2fs-tools \
+       fakeroot \
+       fdisk \
+       flex \
+       gawk \
+       gcc-aarch64-linux-gnu \
+       gcc-riscv64-linux-gnu \
+       gcc-arm-linux-gnueabihf \
+       gcc-arm-linux-gnueabi \
+       gcc-arm-none-eabi \
+       gdisk \
+       git \
+       imagemagick \
+       jq \
+       kmod \
+       libbison-dev \
+       libc6-amd64-cross \
+       libc6-dev-armhf-cross \
+       libfdt-dev \
+       libelf-dev \
+       libfile-fcntllock-perl \
+       libfl-dev \
+       liblz4-tool \
+       libncurses5-dev \
+       libpython2.7-dev \
+       libpython3-dev \
+       libssl-dev \
+       libusb-1.0-0-dev \
+       linux-base \
+       libmpc-dev \
+       locales \
+       lsb-release \
+       lzop \
+       ncurses-base \
+       ncurses-term \
+       nfs-kernel-server \
+       ntpdate \
+       openssh-client \
+       p7zip-full \
+       parted \
+       parallel \
+       patchutils \
+       pigz \
+       pixz \
+       pkg-config \
+       psmisc \
+       pv \
+       python2 \
+       python3 \
+       python3-dev \
+       python3-distutils \
+       python3-pkg-resources \
+       python3-setuptools \
+       qemu-utils \
+       qemu-user-static \
+       rsync \
+       swig \
+       sudo \
+       tzdata \
+       u-boot-tools \
+       udev \
+       unzip \
+       uuid \
+       uuid-dev \
+       uuid-runtime \
+       wget \
+       whiptail \
+       xfsprogs \
+       xxd \
+       zip \
+       zstd \
+       zlib1g-dev \
+       lib32z-dev \
+       vim \
+       nano \
+    && rm -rf /var/lib/apt/lists/*
+RUN locale-gen en_US.UTF-8
 
-ENV DEBIAN_FRONTEND noninteractive
+# Static port for NFSv3 server used for USB FEL boot
+RUN sed -i 's/\(^STATDOPTS=\).*/\1"--port 32765 --outgoing-port 32766"/' /etc/default/nfs-common \
+    && sed -i 's/\(^RPCMOUNTDOPTS=\).*/\1"--port 32767"/' /etc/default/nfs-kernel-server
 
-RUN apt-get update -y && apt-get install -y software-properties-common
-RUN apt-get install -y python3-pip && pip install pycrypto
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' TERM=screen
 
-RUN apt-get update -y && apt-get install -y openjdk-8-jdk python git-core gnupg flex bison gperf build-essential \
-zip curl gawk liblz4-tool zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
-libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
-libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
-htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
-dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio \
-time expect wget cmake binfmt-support qemu-user-static live-build chrpath diffstat zstd
-
-#RUN pip install pycrypto
 ENV USER=bananapi
 ARG USER_ID=0
 ARG GROUP_ID=0
@@ -27,6 +143,6 @@ RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 RUN echo 'root:root' | chpasswd
 RUN echo 'bananapi:bananapi' | chpasswd
 
-RUN apt-get autoclean && apt-get autoremove
+RUN apt-get -y autoclean && apt-get -y autoremove
 
 USER bananapi
