@@ -3,18 +3,23 @@ MAINTAINER BPI "BPI-SINOVOIP"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get install -y software-properties-common
-RUN apt-get install -y python3-pip && pip install pycrypto
+RUN apt-get update -y && apt-get install -y \
+      ccache doxygen gcc coreutils fakeroot squashfs-tools \
+      sudo liblz4-tool xz-utils cryptsetup-bin \
+      git-core gnupg flex bison gperf build-essential zip \
+      curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
+      libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev \
+      lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip \
+      libssl-dev bc python python3 python3-pip python3-pexpect python3-markdown \
+      gawk wget git-core diffstat texinfo build-essential chrpath socat cpio \
+      xz-utils debianutils iputils-ping libsdl1.2-dev xterm \
+      libmicrohttpd-dev libargtable2-dev ninja-build \
+      gzip ffmpeg openjdk-8-jdk vim rsync libidn11 automake \
+      autoconf kmod genext2fs
 
-RUN apt-get update -y && apt-get install -y openjdk-8-jdk python git-core gnupg flex bison gperf build-essential \
-zip curl gawk liblz4-tool zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
-libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
-libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
-htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
-dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio \
-time expect wget cmake binfmt-support qemu-user-static live-build chrpath diffstat zstd
+RUN pip install autopep8 -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+RUN wget https://cmake.org/files/v3.20/cmake-3.20.0-linux-x86_64.sh && chmod a+x cmake-3.20.0-linux-x86_64.sh && ./cmake-3.20.0-linux-x86_64.sh --prefix=/usr/ --exclude-subdir
 
-#RUN pip install pycrypto
 ENV USER=bananapi
 ARG USER_ID=0
 ARG GROUP_ID=0
