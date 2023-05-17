@@ -17,7 +17,10 @@ RUN apt-get update -y && apt-get install -y \
       gzip ffmpeg openjdk-8-jdk vim rsync libidn11 automake \
       autoconf kmod genext2fs
 
-RUN pip install autopep8 -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+RUN apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu \
+      gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+
+RUN pip install autopep8
 RUN wget https://cmake.org/files/v3.20/cmake-3.20.0-linux-x86_64.sh && chmod a+x cmake-3.20.0-linux-x86_64.sh && ./cmake-3.20.0-linux-x86_64.sh --prefix=/usr/ --exclude-subdir
 
 ENV USER=bananapi
@@ -32,6 +35,6 @@ RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 RUN echo 'root:root' | chpasswd
 RUN echo 'bananapi:bananapi' | chpasswd
 
-RUN apt-get autoclean && apt-get autoremove
+RUN apt-get autoclean && apt-get autoremove -y
 
 USER bananapi
