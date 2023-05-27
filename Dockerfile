@@ -13,7 +13,6 @@ libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
 htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
 dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio
 
-#RUN pip install pycrypto
 ENV USER=bananapi
 ARG USER_ID=0
 ARG GROUP_ID=0
