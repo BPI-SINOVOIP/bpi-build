@@ -1,17 +1,13 @@
-FROM ubuntu:20.04
+FROM ubuntu:16.04
 MAINTAINER BPI "BPI-SINOVOIP"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get install -y software-properties-common
-RUN apt-get install -y python3-pip && pip install pycrypto
-
-RUN apt-get update -y && apt-get install -y openjdk-8-jdk python git-core gnupg flex bison gperf build-essential \
-zip curl gawk liblz4-tool zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
-libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
-libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
-htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
-dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio
+RUN apt-get update -y && apt-get install -y \
+	openjdk-8-jdk automake make git-core gperf zip dos2unix flex \
+	bison perl gcc g++ tig pkg-config cpp-aarch64-linux-gnu kmod bc \
+	gcc-4.8-aarch64-linux-gnu unzip lib32z1 libx11-dev lib32z-dev ccache \
+	gitk libxml2-utils libssl-dev vim-common sudo lib32stdc++6 net-tools
 
 ENV USER=bananapi
 ARG USER_ID=0
