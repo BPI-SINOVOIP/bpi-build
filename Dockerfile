@@ -1,51 +1,50 @@
-FROM	ubuntu:16.04
-MAINTAINER	BPI  "BPI-SINOVOIP"
+FROM ubuntu:16.04
+MAINTAINER BPI "BPI-SINOVOIP"
 
-RUN	apt-get update && apt-get install -y \
-	apt-utils \
-	openssh-server \
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update -y && apt-get install -y \
 	build-essential \
-	gcc-multilib \
-	unzip \
-	sudo \
-	git \
-	mercurial \
-	vim \
-	bc \
-	u-boot-tools \
-	device-tree-compiler \
-	pkg-config \
-	libusb-1.0-0-dev \
-	python-software-properties \
-	software-properties-common \
+	subversion \
+	git-core \
 	libncurses5-dev \
 	lib32ncurses5-dev \
 	libc6-dev-i386 \
 	lib32z-dev \
-	libswitch-perl \
-	openssl \
-	libssl-dev \
-	bison \
-	flex \
-	busybox \
+	zlib1g-dev \
 	gawk \
+	flex \
+	quilt \
+	libssl-dev \
+	xsltproc \
+	libxml-parser-perl \
+	mercurial \
+	bzr \
+	ecj \
+	cvs \
+	unzip \
+	bc \
+	u-boot-tools \
 	locales \
-	cpio \
-	kmod
+	wget \
+	busybox \
+	vim \
+	sudo
 
-ADD	dtc /usr/bin/dtc
+RUN locale-gen en_US.UTF-8
+ENV LANG='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
-RUN     locale-gen en_US.UTF-8
-ENV     LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+ENV USER=bananapi
+ARG USER_ID=0
+ARG GROUP_ID=0
+RUN groupadd -g ${GROUP_ID} bananapi && useradd -m -g bananapi -u ${USER_ID} bananapi
 
-RUN	mkdir /var/run/sshd
-RUN	echo 'root:root' | chpasswd
-RUN     sed -i 's/AcceptEnv LANG LC_*/#AcceptEnv LANG LC_*/g' /etc/ssh/sshd_config
-RUN 	sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN 	sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN adduser bananapi sudo
+RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 
-VOLUME	["/media"]
+RUN echo 'root:root' | chpasswd
+RUN echo 'bananapi:bananapi' | chpasswd
 
-EXPOSE	22
+RUN apt-get autoclean && apt-get autoremove
 
-CMD	["/usr/sbin/sshd", "-D"]
+USER bananapi
