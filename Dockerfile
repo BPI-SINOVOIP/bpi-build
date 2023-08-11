@@ -12,7 +12,10 @@ libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
 libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
 htop iotop sysstat iftop pigz bc device-tree-compiler lunzip locales \
 dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio \
-time expect wget cmake binfmt-support qemu-user-static live-build chrpath diffstat zstd
+time expect wget cmake binfmt-support qemu-user-static live-build chrpath diffstat zstd \
+libgmp-dev libmpc-dev bsdmainutils
+
+RUN ln -s squeeze /usr/share/live/build/data/debian-cd/bullseye
 
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LC_ALL='en_US.UTF-8'
