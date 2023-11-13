@@ -1,4 +1,1 @@
-
-docker run --privileged -d -p 2222:22 -v /media:/media sinovoip/bpi-build:ubuntu12.04
-
-ssh -p 2222 root@127.0.0.1 #pw: root
+docker run --privileged -it -v /media:/media -v /etc/localtime:/etc/localtime -v /dev:/dev -v /proc:/proc -v /tmp:/tmp sinovoip/bpi-build-aml-linux:ubuntu22.04 /bin/bash
