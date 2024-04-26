@@ -1,3 +1,3 @@
-# bpi-build
+# bpi-build-yocto
 
-  This is a docker system environment which is run ubuntu 20.04, for bananapi rk356x/rk3588 rockchip linux SDK compile.
+  This is a docker system environment which is run ubuntu 22.04, for yocto project compile.

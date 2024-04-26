@@ -1,24 +1,40 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 MAINTAINER BPI "BPI-SINOVOIP"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get install -y software-properties-common
-RUN apt-get install -y python3-pip && pip install pycrypto
-
-RUN apt-get update -y && apt-get install -y openjdk-8-jdk python git-core gnupg flex bison gperf build-essential \
-zip curl gawk liblz4-tool zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
-libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
-libgl1-mesa-dev libxml2-utils xsltproc unzip mtools u-boot-tools \
-htop iotop sysstat iftop pigz bc device-tree-compiler lunzip locales \
-dosfstools vim-common parted udev libssl-dev sudo rsync python3-pyelftools cpio \
-time expect wget cmake binfmt-support qemu-user-static live-build chrpath diffstat zstd \
-libgmp-dev libmpc-dev bsdmainutils
-
-RUN ln -s squeeze /usr/share/live/build/data/debian-cd/bullseye
+RUN apt-get update -y && apt-get install -y \
+	gawk \
+	wget \
+	git \
+	diffstat \
+	unzip \
+	texinfo \
+	gcc \
+	build-essential \
+	chrpath socat \
+	cpio \
+	python3 \
+	python3-pip \
+	python3-pexpect \
+	xz-utils \
+	debianutils \
+	iputils-ping \
+	python3-git \
+	python3-jinja2 \
+	libegl1-mesa \
+	libsdl1.2-dev \
+	python3-subunit \
+	mesa-common-dev \
+	zstd \
+	liblz4-tool \
+	file \
+	locales \
+	libacl1 \
+	sudo \
+	vim
 
 RUN locale-gen en_US.UTF-8
-ENV LANG='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
 ENV USER=bananapi
 ARG USER_ID=0
