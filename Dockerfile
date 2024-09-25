@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 MAINTAINER BPI "BPI-SINOVOIP"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,9 +11,14 @@ RUN apt-get update -y && apt-get install -y \
 	unzip \
 	texinfo \
 	gcc \
+	gcc-multilib \
 	build-essential \
-	chrpath socat \
+	chrpath \
+	socat \
 	cpio \
+	xterm \
+	p7zip-full \
+	libyaml-dev \
 	python3 \
 	python3-pip \
 	python3-pexpect \
@@ -24,6 +29,7 @@ RUN apt-get update -y && apt-get install -y \
 	python3-jinja2 \
 	libegl1-mesa \
 	libsdl1.2-dev \
+	libssl-dev \
 	python3-subunit \
 	mesa-common-dev \
 	zstd \
