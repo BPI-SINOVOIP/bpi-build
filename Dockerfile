@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 MAINTAINER BPI "BPI-SINOVOIP"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -12,6 +12,10 @@ RUN apt-get update -y && apt-get install -y \
 	libc6-dev-i386 \
 	lib32z-dev \
 	zlib1g-dev \
+	bison \
+	rsync \
+	cpio \
+	liblzo2-2 \
 	gawk \
 	flex \
 	quilt \
@@ -29,10 +33,11 @@ RUN apt-get update -y && apt-get install -y \
 	wget \
 	busybox \
 	vim \
-	sudo
+	sudo \
+	mtd-utils
 
 RUN locale-gen en_US.UTF-8
-ENV LANG='en_US.UTF-8' LC_ALL='en_US.UTF-8'
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 ENV USER=bananapi
 ARG USER_ID=0
