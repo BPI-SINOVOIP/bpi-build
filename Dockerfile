@@ -34,7 +34,10 @@ RUN apt-get update -y && apt-get install -y \
 	busybox \
 	vim \
 	sudo \
-	mtd-utils
+	mtd-utils \
+	chrpath \
+	lz4 \
+	zstd
 
 RUN locale-gen en_US.UTF-8
 RUN ln -s /usr/bin/python3 /usr/bin/python
