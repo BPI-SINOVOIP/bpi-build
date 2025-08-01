@@ -38,7 +38,9 @@ RUN apt-get update -y && apt-get install -y \
 	locales \
 	libacl1 \
 	sudo \
-	vim
+	vim \
+	u-boot-tools \
+	parted
 
 RUN locale-gen en_US.UTF-8
 
