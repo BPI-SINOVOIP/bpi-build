@@ -40,7 +40,8 @@ RUN apt-get update -y && apt-get install -y \
 	sudo \
 	vim \
 	u-boot-tools \
-	parted
+	parted \
+	srecord
 
 RUN locale-gen en_US.UTF-8
 
